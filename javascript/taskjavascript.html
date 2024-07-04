@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript task</title>
+    <script>
+        function isPrime(num) {
+            if (num <= 1) return false;
+            if (num <= 3) return true;
+            if (num % 2 === 0 || num % 3 === 0) return false;
+            for (let i = 5; i * i <= num; i += 6) {
+                if (num % i === 0 || num % (i + 2) === 0) return false;
+            }
+            return true;
+        }
+
+        function findMinMax(arr) {
+            let min = Math.min(...arr);
+            let max = Math.max(...arr);
+            return { min, max };
+        }
+
+        function bubbleSort(arr) {
+            let n = arr.length;
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        let temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+                }
+            }
+            return arr;
+        }
+
+        function isPerfectNumber(num) {
+            let sum = 1;
+            for (let i = 2; i * i <= num; i++) {
+                if (num % i === 0) {
+                    if (i * i != num)
+                        sum = sum + i + num / i;
+                    else
+                        sum = sum + i;
+                }
+            }
+            return (sum === num && num !== 1);
+        }
+
+        function countCharacters(str) {
+            let alphabets = 0, digits = 0, special = 0;
+            for (let i = 0; i < str.length; i++) {
+                let char = str[i];
+                if (/[a-zA-Z]/.test(char)) alphabets++;
+                else if (/[0-9]/.test(char)) digits++;
+                else special++;
+            }
+            return { alphabets, digits, special };
+        }
+
+        function handlePrimeCheck() {
+            let num = parseInt(document.getElementById('primeInput').value);
+            let result = isPrime(num);
+            document.getElementById('primeResult').innerText = result ? "Prime" : "Not Prime";
+        }
+
+        function handleMinMax() {
+            let arr = document.getElementById('arrayInput').value.split(',').map(Number);
+            let result = findMinMax(arr);
+            document.getElementById('minMaxResult').innerText = `Min: ${result.min}, Max: ${result.max}`;
+        }
+
+        function handleBubbleSort() {
+            let arr = document.getElementById('sortInput').value.split(',').map(Number);
+            let sortedArr = bubbleSort(arr);
+            document.getElementById('sortResult').innerText = `Sorted Array: ${sortedArr.join(', ')}`;
+        }
+
+        function handlePerfectNumberCheck() {
+            let num = parseInt(document.getElementById('perfectInput').value);
+            let result = isPerfectNumber(num);
+            document.getElementById('perfectResult').innerText = result ? "Perfect Number" : "Not Perfect Number";
+        }
+
+        function handleCountCharacters() {
+            let str = document.getElementById('charCountInput').value;
+            let result = countCharacters(str);
+            document.getElementById('charCountResult').innerText = `Alphabets: ${result.alphabets}, Digits: ${result.digits}, Special Characters: ${result.special}`;
+        }
+    </script>
+</head>
+<body>
+    <h1>JavaScript task</h1>
+
+    <h2>Check Prime Number</h2>
+    <input type="number" id="primeInput">
+    <button onclick="handlePrimeCheck()">Check</button>
+    <p id="primeResult"></p>
+
+    <h2>Find Min and Max in Array</h2>
+    <input type="text" id="arrayInput" placeholder="Enter numbers separated by commas">
+    <button onclick="handleMinMax()">Find Min and Max</button>
+    <p id="minMaxResult"></p>
+
+    <h2>Bubble Sort</h2>
+    <input type="text" id="sortInput" placeholder="Enter numbers separated by commas">
+    <button onclick="handleBubbleSort()">Sort</button>
+    <p id="sortResult"></p>
+
+    <h2>Check Perfect Number</h2>
+    <input type="number" id="perfectInput">
+    <button onclick="handlePerfectNumberCheck()">Check</button>
+    <p id="perfectResult"></p>
+
+    <h2>Count Characters in String</h2>
+    <input type="text" id="charCountInput" value="sjd&$)#152Dheu">
+    <button onclick="handleCountCharacters()">Count</button>
+    <p id="charCountResult"></p>
+</body>
+</html>
